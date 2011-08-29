@@ -7,6 +7,11 @@ describe("Context template", {
         value_of(CT(html)).should_be(html);
     },
 
+    "should not throw error if variable is not passed": function() {
+        var html = "<div><%= @name %></div>";
+        value_of(CT(html, {  })).should_be("<div></div>");
+    },
+
     "should evaluate script": function() {
         var html = "<% if(this.success) { %>Success<% } else { %>Failure<% } %>";
         value_of(CT(html, { success: true })).should_be("Success");
