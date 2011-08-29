@@ -4,7 +4,7 @@ Context Template
 Context based version of Underscore.js (https://github.com/documentcloud/underscore) micro-templating. General difference is to use object context, instead of `with(object) { }` statement.
 It solves problems with undefined variable issues and makes easier to handle it:
 
-** Underscore **
+**Underscore**
 
 	var html = "<div><%= surname %></div>";
 	_.template(html, { }); // Will throw "ReferenceError: surname is not defined"
@@ -15,7 +15,7 @@ so need to handle that like:
 	_.template(html, { }); // <div></div>
 
 
-** ContextTemplate **
+**ContextTemplate**
 
 	var html = "<div><%= @surname %></div>";
 	CT(html, { }); <div></div>
@@ -40,7 +40,7 @@ Caching
 
 The other difference is lazy caching, instead of manual caching in _.template. Whenever template function is called for html string, "compiled" result will be saved in cache and next time same template called - cached version will be used:
 
-** Underscore **
+**Underscore**
 
 	var html = "<div><%= @name %></div>";
 	var compiledHTML = _.template(html); // Stores "compiled" template
@@ -48,7 +48,7 @@ The other difference is lazy caching, instead of manual caching in _.template. W
 	compiledHTML({ name: "Sam" }); // Use cached template, just apply new variables
 
 
-** ContextTemplate **
+**ContextTemplate**
 
 	var html = "<div><%= @name %></div>";
 	CT(html, { name: "Bob" });  // Stores "compiled" template
