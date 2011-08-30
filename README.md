@@ -17,7 +17,7 @@ so need to handle that like:
 
 **ContextTemplate**
 
-	var html = "<div><%= @surname %></div>";
+	var html = "<div><%= this.surname %></div>";
 	CT(html, { }); <div></div>
 
 
@@ -42,7 +42,7 @@ The other difference is lazy caching, instead of manual caching in _.template. W
 
 **Underscore**
 
-	var html = "<div><%= @name %></div>";
+	var html = "<div><%= name %></div>";
 	var compiledHTML = _.template(html); // Stores "compiled" template
 	compiledHTML({ name: "Bob" }); // Use cached template, just apply new variables
 	compiledHTML({ name: "Sam" }); // Use cached template, just apply new variables
