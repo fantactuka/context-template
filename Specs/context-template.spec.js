@@ -27,10 +27,14 @@ describe("Context template", {
     },
 
     "should store cached compiler": function() {
-        var html = "<% if(true) { %>a<% } %>";
-        value_of(CT.cache[html]).should_be_undefined();
-        CT(html, { success: true });
-        value_of(CT.cache[html]).should_not_be_undefined();
+		CT.cache = {};
+		
+        var html = "<% if(true) { %>a<% } %>",
+			result = CT(html, { success: true }),
+			cacheKey = Object.keys(CT.cache)[0]
+			cached = CT.cache[cacheKey];
+			
+		value_of(cached()).should_be(result);
     }
 
 });

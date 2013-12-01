@@ -1,12 +1,28 @@
 (function() {
 
     var CT = window.ContextTemplate = function(html, variables) {
-        if (!CT.cache[html]) {
-            CT.cache[html] = new Function(CT.compile(html));
+		var hashCode = toHashCode(html);
+		
+        if (!CT.cache[hashCode]) {
+            CT.cache[hashCode] = new Function(CT.compile(html));
         }
 
-        return CT.cache[html].apply(variables || {});
+        return CT.cache[hashCode].apply(variables || {});
     };
+
+	var toHashCode = function(str) {
+	    var h1 = (5381 << 16) + 5381, h2 = h1, index = 0;
+	    while (index < str.length) {
+	        h1 = ((h1 << 5) + h1 + (h1 >> 27)) ^ str.charCodeAt(index);
+	        if (index == str.length - 1) {
+	            break;
+	        }
+	        h2 = ((h2 << 5) + h2 + (h2 >> 27)) ^ str.charCodeAt(index + 1);
+	        index += 2;
+	    }
+ 
+	    return h1 + (h2 * 1566083941);
+	}
 
     var evaluation = function(match, code) {
         return "');" + code.replace(/\\'/g, "'").replace(/[\r\n\t]/g, ' ') + "p.push('";
